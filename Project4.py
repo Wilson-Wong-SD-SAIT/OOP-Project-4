@@ -1,45 +1,4 @@
 
-class Doctor:
-
-    def __init__(self, doctor_info=None ):
-        self.__doctor_id, self.__name, self.__specialization, self.__working_time, self.__qualification, self.__room_number = doctor_info.split("_")
-
-    def get_doctor_id(self):
-        return self.__doctor_id
-
-    def get_doctor_name(self):
-        return self.__name
-
-    def get_doctor_specialization(self):
-        return self.__specialization
-
-    def get_doctor_working_time(self):
-        return self.__working_time
-
-    def get_doctor_qualification(self):
-        return self.__qualification
-
-    def get_doctor_room_number(self):
-        return self.__room_number
-
-    def set_doctor_id(self, new_id):
-        self.__doctor_id = new_id
-
-    def set_doctor_name(self, new_name):
-        self.__name = new_name
-
-    def set_doctor_specialization(self, new_specialization):
-        self.__specialization = new_specialization
-
-    def set_doctor_working_time(self, new_working_time):
-        self.__working_time = new_working_time
-
-    def set_doctor_qualification(self, new_qualification):
-        self.__qualification = new_qualification
-
-    def set_doctor_room_number(self, new_room_number):
-        self.__room_number = new_room_number
-
 class DoctorManager:
 
     def __init__(self):
