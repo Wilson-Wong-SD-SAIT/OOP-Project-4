@@ -98,7 +98,6 @@ class DoctorManager:
 
     def write_list_of_doctors_to_file(self):
         # Iterates through doctors list
-
         with open('Project Data\doctorsTry.txt', 'w') as file:
             # Write back the original first line
             file.write("id_name_specilist_timing_qualification_roomNb" + "\n")
