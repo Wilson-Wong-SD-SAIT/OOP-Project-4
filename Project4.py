@@ -55,12 +55,12 @@ class DoctorManager:
 
     def display_doctor_info(self, doctor):
         # Display doctor object information as in the project output file
-        print(f'{doctor.get_doctor_id():<5}{doctor.get_doctor_name():<23}{doctor.get_doctor_specialization():<16}{doctor.get_doctor_working_time():<16}{doctor.get_doctor_qualification():<16}{doctor.get_doctor_room_number():<11}', end="")
-        print(f'', end="")
-        print(f'', end="")
-        print(f'', end="")
-        print(f'', end="")
-        print(f'', end="\n")
+        print(f'{doctor.get_doctor_id():<5}', end="")
+        print(f'{doctor.get_doctor_name():<23}', end="")
+        print(f'{doctor.get_doctor_specialization():<16}', end="")
+        print(f'{doctor.get_doctor_working_time():<16}', end="")
+        print(f'{doctor.get_doctor_qualification():<16}', end="")
+        print(f'{doctor.get_doctor_room_number():<11}', end="\n")
 
     def edit_doctor_info(self):
         # Asks the user to enter the doctor id which the user wants to edit
@@ -146,8 +146,7 @@ class Patient:
         self.__age = new_age
 
     def __str__(self):
-        return f"{self.__pid}_{self.__name}_{self.__disease}_{self.__gender}_{self.__age}"
-
+        return f"{self.__pid:<5}_{self.__name:<23}_{self.__disease:<16}_{self.__gender:<16}_{self.__age:<3}"
 
 class PatientManager:
     def __init__(self):
@@ -169,12 +168,13 @@ class PatientManager:
         return patient
 
     def read_patients_file(self):
-        with open('patients.txt', 'r') as file:
+        with open('Project Data\patients.txt', 'r') as file:
             lines = file.readlines()[1:]
         for line in lines:
             self.patients.append(Patient(line.strip()))
 
-    def search_patient_by_id(self, patient_id):
+    def search_patient_by_id(self):
+        patient_id = input("Enter the Patient Id: ")
         found_patient = None
         for patient in self.patients:
             if patient.get_pid() == patient_id:
@@ -182,21 +182,26 @@ class PatientManager:
                 break
 
         if found_patient:
-            return found_patient
+            return self.display_patient_info(found_patient)
         else:
             print("Cannot find patient")
 
     def display_patient_info(self, patient):
-        print(f"ID: {patient.get_pid()}")
-        print(f"Name: {patient.get_name()}")
-        print(f"Disease: {patient.get_disease()}")
-        print(f"Gender: {patient.get_gender()}")
-        print(f"Age: {patient.get_age()}")
+        print(f'{patient.get_pid():<5}', end="")
+        print(f'{patient.get_name():<23}', end="")
+        print(f'{patient.get_disease():<16}', end="")
+        print(f'{patient.get_gender():<16}', end="")
+        print(f'{patient.get_age():<3}', end="\n\n")
 
-    def edit_patient_info_by_id(self, patient_id):
-        patient = self.search_patient_by_id(patient_id)
-        if patient:
-            print("Please enter the id of the Patient that you want to edit their information:")
+    def edit_patient_info_by_id(self):
+        patient_id = input("Please enter the id of the Patient that you want to edit their information:")
+        found_patient = None
+        for patient in self.patients:
+            if patient.get_pid() == patient_id:
+                found_patient = patient
+                break
+
+        if found_patient:
             patient.set_name(input("Enter new Name: "))
             patient.set_disease(input("Enter new disease: "))
             patient.set_gender(input("Enter new gender: "))
@@ -211,23 +216,18 @@ class PatientManager:
         print(f'{"Name":<23}', end="")
         print(f'{"Disease":<16}', end="")
         print(f'{"Gender":<16}', end="")
-        print(f'{"Age":<16}', end="")
+        print(f'{"Age":<16}', end="\n\n")
         for patient in self.patients:
             self.display_patient_info(patient)
 
     def write_list_of_patients_to_file(self):
-        with open("patients.txt", "w") as file:
+        with open("Project Data\patients.txt", "w") as file:
             for patient in self.patients:
                 file.write(self.format_patient_info_for_file(patient))
 
     def add_patient_to_file(self):
         new_patient = self.enter_patient_iInfo()
         self.patients.append(new_patient)
-        with open("patients.txt", "a") as file:
+        with open("Project Data\patients.txt", "a") as file:
             file.write(self.format_patient_info_for_file(new_patient))
-        print("New patient added.")
-
-
-
-
-
+        print(f"Patient whose ID is {new_patient.get_pid()} has been added")
