@@ -119,6 +119,116 @@ class DoctorManager:
         # Confirms that a new doctor has been added
         print(f"Doctor whose ID is {new_doctor.get_doctor_id()} has been added")
 
+class Patient:
+    def __init__(self, patient_info=None):
+        self.__pid, self.__name, self.__disease, self.__gender, self.__age = patient_info.split("_")
+
+    def get_pid(self):
+        return self.__pid
+
+    def get_name(self):
+        return self.__name
+
+    def get_disease(self):
+        return self.__disease
+
+    def get_gender(self):
+        return self.__gender
+
+    def get_age(self):
+        return self.__age
+
+    def set_name(self, new_name):
+        self.__name = new_name
+
+    def set_disease(self, new_disease):
+        self.__disease = new_disease
+
+    def set_gender(self, new_gender):
+        self.__gender = new_gender
+
+    def set_age(self, new_age):
+        self.__age = new_age
+
+    def __str__(self):
+        return f"{self.__pid}_{self.__name}_{self.__disease}_{self.__gender}_{self.__age}"
+
+
+class PatientManager:
+    def __init__(self):
+        self.patients = []
+        self.read_patients_file()
+
+    def format_patient_info_for_file(self, patient):
+        return f"{patient.get_pid()}_{patient.get_name()}_{patient.get_disease()}_{patient.get_gender()}_{patient.get_age()}\n"
+
+    def enter_patient_iInfo(self):
+        pid = input("Enter Patient id: ")
+        name = input("Enter Patient name: ")
+        disease = input("Enter Patient disease: ")
+        gender = input("Enter Patient gender: ")
+        age = input("Enter Patient age: ")
+
+        patient_info = f"{pid}_{name}_{disease}_{gender}_{age}"
+        patient = Patient(patient_info)
+        return patient
+
+    def read_patients_file(self):
+        with open('patients.txt', 'r') as file:
+            lines = file.readlines()[1:]
+        for line in lines:
+            self.patients.append(Patient(line.strip()))
+
+    def search_patient_by_id(self, patient_id):
+        found_patient = None
+        for patient in self.patients:
+            if patient.get_pid() == patient_id:
+                found_patient = patient
+                break
+
+        if found_patient:
+            return found_patient
+        else:
+            print("Cannot find patient")
+
+    def display_patient_info(self, patient):
+        print("Patient Information:")
+        print(f"ID: {patient.get_pid()}")
+        print(f"Name: {patient.get_name()}")
+        print(f"Disease: {patient.get_disease()}")
+        print(f"Gender: {patient.get_gender()}")
+        print(f"Age: {patient.get_age()}")
+
+    def edit_patient_info_by_id(self, patient_id):
+        patient = self.search_patient_by_id(patient_id)
+        if patient:
+            print("Enter new patient information:")
+            patient.set_name(input("New name: "))
+            patient.set_disease(input("New disease: "))
+            patient.set_gender(input("New gender: "))
+            patient.set_age(input("New age: "))
+            self.write_list_of_patients_to_file()
+            print("Patient information updated.")
+        else:
+            print("Cannot find the patient.")
+
+    def display_patients_list(self):
+        print("List of Patients:")
+        for patient in self.patients:
+            self.display_patient_info(patient)
+            print("")
+
+    def write_list_of_patients_to_file(self):
+        with open("patients.txt", "w") as file:
+            for patient in self.patients:
+                file.write(self.format_patient_info_for_file(patient))
+
+    def add_patient_to_file(self):
+        new_patient = self.enter_patient_iInfo()
+        self.patients.append(new_patient)
+        with open("patients.txt", "a") as file:
+            file.write(self.format_patient_info_for_file(new_patient))
+        print("New patient added.")
 
 
 
