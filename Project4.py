@@ -192,7 +192,6 @@ class PatientManager:
             print("Cannot find patient")
 
     def display_patient_info(self, patient):
-        print("Patient Information:")
         print(f"ID: {patient.get_pid()}")
         print(f"Name: {patient.get_name()}")
         print(f"Disease: {patient.get_disease()}")
@@ -202,21 +201,24 @@ class PatientManager:
     def edit_patient_info_by_id(self, patient_id):
         patient = self.search_patient_by_id(patient_id)
         if patient:
-            print("Enter new patient information:")
-            patient.set_name(input("New name: "))
-            patient.set_disease(input("New disease: "))
-            patient.set_gender(input("New gender: "))
-            patient.set_age(input("New age: "))
+            print("Please enter the id of the Patient that you want to edit their information:")
+            patient.set_name(input("Enter new Name: "))
+            patient.set_disease(input("Enter new disease: "))
+            patient.set_gender(input("Enter new gender: "))
+            patient.set_age(input("Enter new age: "))
             self.write_list_of_patients_to_file()
-            print("Patient information updated.")
+            print(f"Patient whose ID is {patient_id} has been edited..")
         else:
             print("Cannot find the patient.")
 
     def display_patients_list(self):
-        print("List of Patients:")
+        print(f'{"ID":<5}', end="")
+        print(f'{"Name":<23}', end="")
+        print(f'{"Disease":<16}', end="")
+        print(f'{"Gender":<16}', end="")
+        print(f'{"Age":<16}', end="")
         for patient in self.patients:
             self.display_patient_info(patient)
-            print("")
 
     def write_list_of_patients_to_file(self):
         with open("patients.txt", "w") as file:
