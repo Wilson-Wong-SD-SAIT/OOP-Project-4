@@ -26,7 +26,7 @@ class DoctorManager:
         return new_doctor
 
     def read_doctors_file(self):
-        with open ('Project Data\doctorsTry.txt', 'r') as file:
+        with open ('Project Data\doctors.txt', 'r') as file:
             # Skip 1st line of file as it is not doctor info
             lines = file.readlines()[1:]
             # Create an object for each doctor record and append it to the self.doctor_list
@@ -55,12 +55,12 @@ class DoctorManager:
 
     def display_doctor_info(self, doctor):
         # Display doctor object information as in the project output file
-        print(f'{doctor.get_doctor_id():<5}', end="")
-        print(f'{doctor.get_doctor_name():<23}', end="")
-        print(f'{doctor.get_doctor_specialization():<16}', end="")
-        print(f'{doctor.get_doctor_working_time():<16}', end="")
-        print(f'{doctor.get_doctor_qualification():<16}', end="")
-        print(f'{doctor.get_doctor_room_number():<11}', end="\n")
+        print(f'{doctor.get_doctor_id():<5}{doctor.get_doctor_name():<23}{doctor.get_doctor_specialization():<16}{doctor.get_doctor_working_time():<16}{doctor.get_doctor_qualification():<16}{doctor.get_doctor_room_number():<11}', end="")
+        print(f'', end="")
+        print(f'', end="")
+        print(f'', end="")
+        print(f'', end="")
+        print(f'', end="\n")
 
     def edit_doctor_info(self):
         # Asks the user to enter the doctor id which the user wants to edit
@@ -86,12 +86,7 @@ class DoctorManager:
 
     def display_doctors_list(self, doctor_list):
         # the first line is for titles as in project output file
-        print(f'{"Id":<5}', end="")
-        print(f'{"Name":<23}', end="")
-        print(f'{"Speciality":<16}', end="")
-        print(f'{"Timing":<16}', end="")
-        print(f'{"Qualification":<16}', end="")
-        print(f'{"Room Number":<11}', end="\n\n")
+        print(f'{"Id":<5}{"Name":<23}{"Speciality":<16}{"Timing":<16}{"Qualification":<16}{"Room Number":<11}', end="\n\n")
         # the remaining lines are for displaying doctors' info
         for doctor in doctor_list:
             self.display_doctor_info(doctor)
