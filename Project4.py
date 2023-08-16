@@ -117,8 +117,8 @@ class DoctorManager:
 class Patient:
     # Represents a patient with information such as ID, name, disease, gender, and age
     def __init__(self, patient_info=None):
-        self.__pid, self.__name, self.__disease, self.__gender, self.__age = patient_info.split("_")
         # Initializes a Patient object using patient information.
+        self.__pid, self.__name, self.__disease, self.__gender, self.__age = patient_info.split("_")
 
     # Getters
     def get_pid(self):
@@ -153,15 +153,16 @@ class Patient:
         # Returns a formatted string representation of the Patient object
         return f"{self.__pid:<5}_{self.__name:<23}_{self.__disease:<16}_{self.__gender:<16}_{self.__age:<3}"
 
+
 class PatientManager:
     def __init__(self):
         self.patients = []
-        self.read_patients_file()
         # Load patient data from patients.txt into self.patients
+        self.read_patients_file()
 
     def format_patient_info_for_file(self, patient):
-        return f"{patient.get_pid()}_{patient.get_name()}_{patient.get_disease()}_{patient.get_gender()}_{patient.get_age()}\n"
         # Formats doctor object information similarly to the format used in patients TXT file
+        return f"{patient.get_pid()}_{patient.get_name()}_{patient.get_disease()}_{patient.get_gender()}_{patient.get_age()}\n"
 
     def enter_patient_iInfo(self):
         # Create and return new patient object based on user's inputs
@@ -177,7 +178,7 @@ class PatientManager:
 
     def read_patients_file(self):
         with open('Project Data\patients.txt', 'r') as file:
-            # Skip 1st line of file as it is not patient info
+        # Skip 1st line of file as it is not patient info
             lines = file.readlines()[1:]
         for line in lines:
         # Create an object for each patient record and append it to the self.patients
@@ -185,17 +186,13 @@ class PatientManager:
 
     def search_patient_by_id(self):
         # Searching for the patient with their ID
-        patient_id = input("Enter the Patient Id: ")
-        search_patient = None
+        search_patient = input("Enter the Patient Id: ")
         for patient in self.patients:
             # If found display the patient's info
-            if patient_id == patient.get_pid()
-                return self.display_patient_info([patient])
-        if search_patient:
-            return self.display_patient_info(found_patient)
-        else:
-            # If not found outputs the above text
-            print("Cannot find patient")
+            if search_patient == patient.get_pid()
+                return self.display_patient_info(patient)
+        # If not found outputs the above text
+        print("Cannot find patient")
 
     def display_patient_info(self, patient):
         # Display patient object information as in the project output file
@@ -228,14 +225,9 @@ class PatientManager:
             # If the doctor does not exist, output:
             print("Cannot find the patient.")
 
-
     def display_patients_list(self):
         # the first line is for titles as in project output file
-        print(f'{"ID":<5}', end="")
-        print(f'{"Name":<23}', end="")
-        print(f'{"Disease":<16}', end="")
-        print(f'{"Gender":<16}', end="")
-        print(f'{"Age":<16}', end="\n\n")
+        print(f'{"ID":<5}{"Name":<23}{"Disease":<16}{"Gender":<16}{"Age":<16}', end="\n\n")
         # the remaining lines are for displaying patients' info
         for patient in self.patients:
             self.display_patient_info(patient)
@@ -257,4 +249,6 @@ class PatientManager:
             file.write(self.format_patient_info_for_file(new_patient))
         # Confirms that a new doctor has been added
         print(f"Patient whose ID is {new_patient.get_pid()} has been added")
+
+
 
