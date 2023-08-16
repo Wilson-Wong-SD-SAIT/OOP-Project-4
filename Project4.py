@@ -120,7 +120,7 @@ class DoctorManager:
         print(f"Doctor whose ID is {new_doctor.get_doctor_id()} has been added")
 
 class Patient:
-    # Represents a patient with information such as ID, name, disease, gender, and age.
+    # Represents a patient with information such as ID, name, disease, gender, and age
     def __init__(self, patient_info=None):
         self.__pid, self.__name, self.__disease, self.__gender, self.__age = patient_info.split("_")
         # Initializes a Patient object using patient information.
