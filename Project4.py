@@ -241,7 +241,7 @@ class PatientManager:
         # Iterates through patients list
         with open("patients.txt", "w") as file:
             for patient in self.patients:
-                # Each doctor information must be formatted using format_dr_info() before writing it in the doctors.txt file
+                # Each patient information must be formatted using format_patient_info_for_file() before writing it in the doctors.txt file
                 file.write(self.format_patient_info_for_file(patient))
 
     def add_patient_to_file(self):
