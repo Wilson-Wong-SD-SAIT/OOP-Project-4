@@ -191,14 +191,12 @@ class PatientManager:
 
     def search_patient_by_id(self, patient_id):
         # Searching for the patient with their ID
-        found_patient = None
+        search_patient = input("Enter the patient ID: ")
         for patient in self.patients:
-            if patient.get_pid() == patient_id:
-                found_patient = patient
-                break
+            # If found display the patient's info
+            if search_patient == patient.get_pid()
+                return self.display_patient_info([patient])
 
-        if found_patient:
-            return found_patient
         else:
             print("Cannot find patient")
             # If not found outputs the above text
